@@ -1,7 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import * as path from "path";
-import { Server as ColyseusServer, LobbyRoom } from 'colyseus';
+import { Server as ColyseusServer, LobbyRoom } from "colyseus";
 
 import { errorHandler, errorNotFoundHandler } from "./middlewares/errorHandler";
 
@@ -13,7 +13,7 @@ import { MainRoom } from "./multiplay/rooms/MainRoom";
 export const app = express();
 
 // Express configuration
-app.set("port", process.env.PORT || 5000);
+app.set("port", process.env.PORT || 5001);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
 
@@ -28,13 +28,10 @@ app.use(errorHandler);
 // colyseus game server
 const gameServer = new ColyseusServer({
     server: createServer(app),
-    
 });
 
-gameServer.listen(parseInt(process.env.PORT) || 5001).then(data => {
+gameServer.listen(parseInt(process.env.PORT) || 5002).then(data => {
     console.log(data);
 });
 
 gameServer.define("main", MainRoom);
-
-
