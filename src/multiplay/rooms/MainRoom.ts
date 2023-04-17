@@ -13,7 +13,7 @@ export class MainRoom extends Room<RoomState> {
         });
 
         this.onMessage("move", (client, message) => {
-            console.log(`(${client.sessionId}) ${message}`);
+            console.log(client.sessionId, message);
             const msgWithSender = {
                 clientId: client.sessionId,
                 message,
