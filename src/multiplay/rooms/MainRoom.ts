@@ -13,8 +13,12 @@ export class MainRoom extends Room<RoomState> {
         });
 
         this.onMessage("move", (client, message) => {
-            console.log(message);
-            this.broadcast("move", message);
+            console.log(`(${client.sessionId}) ${message}`);
+            const msgWithSender = {
+                clientId: client.sessionId,
+                message,
+            };
+            this.broadcast("move", msgWithSender);
         });
     }
 
