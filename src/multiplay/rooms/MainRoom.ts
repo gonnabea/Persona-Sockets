@@ -11,10 +11,17 @@ export class MainRoom extends Room<RoomState> {
         this.onMessage("chat", (client, message) => {
             this.broadcast("chat", `(${client.sessionId}) ${message}`);
         });
+
+        this.onMessage("move", (client, { position, rotation }) => {
+            this.broadcast("move", {
+                position, rotation,
+            });
+        });
     }
 
     onJoin(client: Client) {
         this.broadcast("chat", `${client.sessionId} has joined`);
+  
         this.state.createPlayer(client.sessionId, client.id);
     }
 
