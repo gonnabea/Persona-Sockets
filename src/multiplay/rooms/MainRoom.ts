@@ -12,8 +12,9 @@ export class MainRoom extends Room<RoomState> {
             this.broadcast("chat", `(${client.sessionId}) ${message}`);
         });
 
-        this.onMessage("move", (client, { position, rotation }) => {
-            this.broadcast("move", {
+        this.onMessage("player", (client, { position, rotation }) => {
+            console.log(position, rotation);
+            this.broadcast("player", {
                 position, rotation,
             });
         });
