@@ -13,7 +13,6 @@ export class MainRoom extends Room<RoomState> {
         });
 
         this.onMessage("move", (client, message) => {
-            console.log(client);
             console.log(message);
             this.broadcast("move", message);
         });
