@@ -3,6 +3,12 @@ import { Schema, type, MapSchema } from "@colyseus/schema";
 import { Ball } from "./Ball";
 import { Chat } from "./Chat";
 
+interface position {
+    x: number,
+    y: number,
+    z: number
+}
+
 export class RoomState extends Schema {
     @type({ map: Player })
     players = new MapSchema<Player>();
@@ -18,6 +24,17 @@ export class RoomState extends Schema {
         newPlayer.username = username;
 
         this.players.set(id, newPlayer);
+    }
+
+    setPlayerPosition(position: position, rotationZ: number,  id:string): void {
+        this.players.forEach(player => {
+            if(player.id === id) {
+                player.positionX = position.x;
+                player.positionY = position.y;
+                player.positionZ = position.z;
+                player.rotationZ = rotationZ;
+            }
+        });
     }
 
     removePlayer(id: string): void {

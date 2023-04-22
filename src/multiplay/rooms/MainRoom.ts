@@ -14,6 +14,11 @@ export class MainRoom extends Room<RoomState> {
 
         this.onMessage("move", (client, message) => {
             console.log(client.sessionId, message);
+            this.state.setPlayerPosition({
+                x: message.positionX,
+                y: message.positionY,
+                z: message.positionZ,
+            }, message.rotationZ, client.id);
             const msgWithSender = {
                 clientId: client.sessionId,
                 message,
