@@ -20,10 +20,16 @@ export class MainRoom extends Room<RoomState> {
             };
             this.broadcast("move", msgWithSender);
         });
+
+        // 유저 접속 시 
+        this.onMessage("join", (client, message) => {
+            this.broadcast(message);
+        });
     }
 
     onJoin(client: Client) {
         this.broadcast("chat", `${client.sessionId} has joined`);
+        
   
         this.state.createPlayer(client.sessionId, client.id);
     }
