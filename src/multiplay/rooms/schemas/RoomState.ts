@@ -28,8 +28,10 @@ export class RoomState extends Schema {
 
  
 
-    setPlayerPosition(position: position, rotationZ: number,  id:string): void {
+    setPlayerPosition(position: position, rotationZ: number, id:string): void {
+        console.log(id);
         this.players.forEach(player => {
+            console.log(player.id);
             if(player.id === id) {
                 console.log("player found: ", id);
                 player.positionX = position.x;
