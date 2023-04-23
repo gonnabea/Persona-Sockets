@@ -40,10 +40,8 @@ export class RoomState extends Schema {
     }
 
     removePlayer(id: string): void {
-        this.players.forEach(player => {
-            if (player.id === id) {
-                this.players.delete(player.id);
-            }
-        });
+  
+        this.players.delete(id);
+        
     }
 }
