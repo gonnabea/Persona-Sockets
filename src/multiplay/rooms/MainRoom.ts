@@ -14,11 +14,13 @@ export class MainRoom extends Room<RoomState> {
 
         this.onMessage("move", (client, message) => {
             console.log(client.sessionId, message);
-            this.state.setPlayerPosition({
+            const position = {
                 x: message.positionX,
                 y: message.positionY,
                 z: message.positionZ,
-            }, message.rotationZ, client.id);
+            };
+            const rotationZ = message.rotationZ;
+            this.state.setPlayerPosition(position, rotationZ, client.sessionId);
             const msgWithSender = {
                 clientId: client.sessionId,
                 message,
@@ -26,17 +28,18 @@ export class MainRoom extends Room<RoomState> {
             this.broadcast("move", msgWithSender);
         });
 
-        // 유저 접속 시 
+        // 새로운 유저 접속 시 
         this.onMessage("join", (client, message) => {
             this.broadcast(message);
         });
     }
 
-    onJoin(client: Client) {
+    onJoin(client: Client, payload: any) {
+        console.log(payload);
         this.broadcast("chat", `${client.sessionId} has joined`);
         
-  
-        this.state.createPlayer(client.sessionId, client.id);
+        client.send("getSessionId", client.sessionId);
+        this.state.createPlayer(client.sessionId, payload.username);
     }
 
     onLeave(client: Client) {

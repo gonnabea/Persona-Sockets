@@ -26,6 +26,8 @@ export class RoomState extends Schema {
         this.players.set(id, newPlayer);
     }
 
+ 
+
     setPlayerPosition(position: position, rotationZ: number,  id:string): void {
         this.players.forEach(player => {
             if(player.id === id) {
