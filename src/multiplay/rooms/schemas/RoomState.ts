@@ -30,8 +30,8 @@ export class RoomState extends Schema {
 
     setPlayerPosition(position: position, rotationZ: number, id:string): void {
         const player = this.players.get(id);
-        console.log(player);
 
+        player.id = id;
         player.positionX = position.x;
         player.positionY = position.y;
         player.positionZ = position.z;
