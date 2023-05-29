@@ -9,6 +9,8 @@ import { errorHandler, errorNotFoundHandler } from "./middlewares/errorHandler";
 import { index } from "./routes/index";
 import { createServer } from "http";
 import { MainRoom } from "./multiplay/rooms/MainRoom";
+import cors from "cors";
+
 // Create Express server
 export const app = express();
 
@@ -21,6 +23,8 @@ app.use(logger("dev"));
 
 app.use(express.static(path.join(__dirname, "../public")));
 app.use("/", index);
+app.use(cors());
+
 
 app.use(errorNotFoundHandler);
 app.use(errorHandler);

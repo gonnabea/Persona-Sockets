@@ -23,5 +23,9 @@ export class Player extends Schema {
     @type('string')
     username: string;
 
+    // 캐릭터 종류 (ex. Amy, Mutant 등)
+    @type('string')
+    character: string;
+
 }
 
