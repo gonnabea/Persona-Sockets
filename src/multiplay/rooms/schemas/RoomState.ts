@@ -25,10 +25,11 @@ export class RoomState extends Schema {
     @type({ map: Chat })
     chats = new MapSchema<Chat>();
 
-    createPlayer(id: string, username: string): void {
+    createPlayer(id: string, username: string, character: string): void {
         const newPlayer = new Player();
         newPlayer.username = username;
         newPlayer.id = id;
+        newPlayer.character = character;
 
         this.players.set(id, newPlayer);
         

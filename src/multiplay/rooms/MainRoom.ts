@@ -59,7 +59,7 @@ export class MainRoom extends Room<RoomState> {
         this.broadcast("chat", `${client.sessionId} has joined`);
         
         client.send("getSessionId", client.sessionId);
-        this.state.createPlayer(client.sessionId, payload.username);
+        this.state.createPlayer(client.sessionId, payload.username, payload.character);
     }
 
     onLeave(client: Client) {
