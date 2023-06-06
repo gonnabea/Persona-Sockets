@@ -27,5 +27,8 @@ export class Player extends Schema {
     @type('string')
     character: string;
 
+    @type('string')
+    email: string;
+
 }
 
