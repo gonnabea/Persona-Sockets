@@ -30,5 +30,6 @@ export class Player extends Schema {
     @type('string')
     email: string;
 
+
 }
 

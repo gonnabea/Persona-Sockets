@@ -36,6 +36,8 @@ export class RoomState extends Schema {
         
     }
 
+  
+
     createBall(id: string): void {
         const newBall = new Ball();
         newBall.id = id;
@@ -46,7 +48,10 @@ export class RoomState extends Schema {
  
 
     setPlayerPosition(position: position, rotationZ: number, id:string): void {
+        console.log(id);
         const player = this.players.get(id);
+
+        console.log(player);
 
     
         player.positionX = position.x;

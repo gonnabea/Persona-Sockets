@@ -6,22 +6,22 @@ export class Ball extends Schema {
     id: string;
 
     @type('number')
-    positionX: number;
+    linearVelocityX: number;
 
     @type('number')
-    positionY: number;
+    linearVelocityY: number;
 
     @type('number')
-    positionZ: number;
+    linearVelocityZ: number;
 
     @type('number')
-    rotationX: number;
+    angularVelocityX: number;
 
     @type('number')
-    rotationY: number;
+    angularVelocityY: number;
 
     @type('number')
-    rotationZ: number;
+    angularVelocityZ: number;
 
     
 }
