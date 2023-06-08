@@ -61,17 +61,17 @@ export class RoomState extends Schema {
        
     }
 
-    setBallStatus(position: position, rotation: rotation, id:string): void {
+    setBallStatus(linearVelocity: position, angularVelocity: rotation, id:string): void {
         const ball = this.balls.get(id);
 
         ball.id = id;
 
-        ball.positionX = position.x;
-        ball.positionY = position.y;
-        ball.positionZ = position.z;
-        ball.rotationX = rotation.x;
-        ball.rotationY = rotation.y;
-        ball.rotationZ = rotation.z;
+        ball.linearVelocityX = linearVelocity.x;
+        ball.linearVelocityY = linearVelocity.y;
+        ball.linearVelocityZ = linearVelocity.z;
+        ball.angularVelocityX = angularVelocity.x;
+        ball.angularVelocityY = angularVelocity.y;
+        ball.angularVelocityZ = angularVelocity.z;
     }
 
     removePlayer(id: string): void {

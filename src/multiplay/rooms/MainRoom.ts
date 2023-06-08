@@ -36,11 +36,12 @@ export class MainRoom extends Room<RoomState> {
            
         
 
-            const velocity = {
-                angularVelocity: message.angularVelocity,
-                velocity: message.velocity,
-            };
-            this.state.setBallStatus(position, rotation, message.ballId);
+      
+
+            const linearVelocity = message.velocity;
+            const angularVelocity = message.angularVelocity;
+
+            this.state.setBallStatus(linearVelocity, angularVelocity, message.ballId);
             const msgWithSender = {
                 clientId: client.sessionId,
                 message,
