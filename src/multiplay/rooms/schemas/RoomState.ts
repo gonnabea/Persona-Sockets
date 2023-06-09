@@ -48,10 +48,10 @@ export class RoomState extends Schema {
  
 
     setPlayerPosition(position: position, rotationZ: number, id:string): void {
-        console.log(id);
+
         const player = this.players.get(id);
 
-        console.log(player);
+    
 
     
         player.positionX = position.x;
@@ -72,6 +72,17 @@ export class RoomState extends Schema {
         ball.angularVelocityX = angularVelocity.x;
         ball.angularVelocityY = angularVelocity.y;
         ball.angularVelocityZ = angularVelocity.z;
+    }
+
+    setBallSync(position: position, id:string): void {
+        const ball = this.balls.get(id);
+
+        ball.id = id;
+
+        ball.positionX = position.x;
+        ball.positionY = position.y;
+        ball.positionZ = position.z;
+
     }
 
     removePlayer(id: string): void {

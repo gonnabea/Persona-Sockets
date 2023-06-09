@@ -49,6 +49,21 @@ export class MainRoom extends Room<RoomState> {
             this.broadcast("ballMove", msgWithSender);
         });
 
+        this.onMessage("ballSync", (client, message) => {
+
+
+            const position = message.position;
+
+            this.state.setBallSync(position, message.ballId);
+            const msgWithSender = {
+                clientId: client.sessionId,
+                message,
+            };
+
+            this.broadcast("ballSync", msgWithSender);
+
+        });
+
         // 새로운 유저 접속 시 
         this.onMessage("join", (client, message) => {
             this.broadcast(message);

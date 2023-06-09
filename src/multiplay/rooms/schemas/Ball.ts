@@ -23,5 +23,14 @@ export class Ball extends Schema {
     @type('number')
     angularVelocityZ: number;
 
+    @type('number')
+    positionX: number;
+
+    @type('number')
+    positionY: number;
+
+    @type('number')
+    positionZ: number;
+
     
 }
