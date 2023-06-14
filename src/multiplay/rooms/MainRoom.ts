@@ -9,14 +9,14 @@ export class MainRoom extends Room<RoomState> {
         this.setState(new RoomState());
 
         this.onMessage("chat", (client, message) => {
-            this.broadcast("chat", `(${client.sessionId}) ${message}`);
+            const username = this.state.players.get(client.sessionId).username;
+
+            this.broadcast("chat", `(${username}) ${message}`);
         });
 
         this.state.createBall("soccer_ball_1");
-        
 
         this.onMessage("move", (client, message) => {
-            
             const position = {
                 x: message.positionX,
                 y: message.positionY,
@@ -32,16 +32,14 @@ export class MainRoom extends Room<RoomState> {
         });
 
         this.onMessage("ballMove", (client, message) => {
-
-           
-        
-
-      
-
             const linearVelocity = message.velocity;
             const angularVelocity = message.angularVelocity;
 
-            this.state.setBallStatus(linearVelocity, angularVelocity, message.ballId);
+            this.state.setBallStatus(
+                linearVelocity,
+                angularVelocity,
+                message.ballId,
+            );
             const msgWithSender = {
                 clientId: client.sessionId,
                 message,
@@ -50,8 +48,6 @@ export class MainRoom extends Room<RoomState> {
         });
 
         this.onMessage("ballSync", (client, message) => {
-
-
             const position = message.position;
 
             this.state.setBallSync(position, message.ballId);
@@ -61,32 +57,35 @@ export class MainRoom extends Room<RoomState> {
             };
 
             this.broadcast("ballSync", msgWithSender);
-
         });
 
-        // 새로운 유저 접속 시 
+        // 새로운 유저 접속 시
         this.onMessage("join", (client, message) => {
             this.broadcast(message);
         });
     }
 
     onJoin(client: Client, payload: any) {
-        
         this.broadcast("join", payload.user);
         console.log(this.clients);
         console.log(this.clients[0].userData);
-        
-        this.clients[0].userData = { isOwner: true };     
+
+        this.clients[0].userData = {
+            isOwner: true,
+        };
         client.send("getSessionId", client.sessionId);
-        this.state.createPlayer(client.sessionId, payload.user.username, payload.user.character, payload.user.email);
+        this.state.createPlayer(
+            client.sessionId,
+            payload.user.username,
+            payload.user.character,
+            payload.user.email,
+        );
     }
 
     onLeave(client: Client) {
-        this.broadcast("chat", `${client.sessionId} has left`);
-        
+        const username = this.state.players.get(client.sessionId).username;
+        this.broadcast("chat", `${username} has left`);
 
-
-        
         this.state.removePlayer(client.sessionId);
     }
 
