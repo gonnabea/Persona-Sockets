@@ -28,7 +28,7 @@ export class MainRoom extends Room<RoomState> {
                 clientId: client.sessionId,
                 message,
             };
-            this.broadcast("move", msgWithSender);
+            this.broadcast("move", msgWithSender, { except: client });
         });
 
         this.onMessage("ballMove", (client, message) => {
@@ -44,7 +44,7 @@ export class MainRoom extends Room<RoomState> {
                 clientId: client.sessionId,
                 message,
             };
-            this.broadcast("ballMove", msgWithSender);
+            this.broadcast("ballMove", msgWithSender, { except: client });
         });
 
         this.onMessage("ballSync", (client, message) => {
@@ -56,7 +56,7 @@ export class MainRoom extends Room<RoomState> {
                 message,
             };
 
-            this.broadcast("ballSync", msgWithSender);
+            this.broadcast("ballSync", msgWithSender, { except: client });
         });
 
         // 새로운 유저 접속 시

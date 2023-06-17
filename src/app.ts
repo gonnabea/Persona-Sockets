@@ -2,7 +2,8 @@ import express from "express";
 import logger from "morgan";
 import * as path from "path";
 import { Server as ColyseusServer, LobbyRoom } from "colyseus";
-
+// import { RedisDriver } from "@colyseus/redis-driver";
+// import { RedisPresence } from "@colyseus/redis-presence";
 import { errorHandler, errorNotFoundHandler } from "./middlewares/errorHandler";
 
 // Routes
@@ -10,6 +11,7 @@ import { index } from "./routes/index";
 import { createServer } from "http";
 import { MainRoom } from "./multiplay/rooms/MainRoom";
 import cors from "cors";
+
 
 // Create Express server
 export const app = express();
