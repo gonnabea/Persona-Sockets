@@ -9,9 +9,9 @@ export class MainRoom extends Room<RoomState> {
         this.setState(new RoomState());
 
         this.onMessage("chat", (client, message) => {
-            const username = this.state.players.get(client.sessionId).username;
+            const user = this.state.players.get(client.sessionId);
 
-            this.broadcast("chat", `(${username}) ${message}`);
+            this.broadcast("chat", { ...user, chatMessage: message });
         });
 
         this.state.createBall("soccer_ball_1");
