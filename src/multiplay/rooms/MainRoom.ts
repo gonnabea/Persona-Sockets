@@ -8,6 +8,8 @@ export class MainRoom extends Room<RoomState> {
     onCreate(client: Client) {
         this.setState(new RoomState());
 
+        console.log(this.presence);
+
         this.onMessage("chat", (client, message) => {
             const user = this.state.players.get(client.sessionId);
 

@@ -2,8 +2,8 @@ import express from "express";
 import logger from "morgan";
 import * as path from "path";
 import { Server as ColyseusServer, LobbyRoom } from "colyseus";
-// import { RedisDriver } from "@colyseus/redis-driver";
-// import { RedisPresence } from "@colyseus/redis-presence";
+import { RedisDriver } from "@colyseus/redis-driver";
+import { RedisPresence } from "@colyseus/redis-presence";
 import { errorHandler, errorNotFoundHandler } from "./middlewares/errorHandler";
 
 // Routes
@@ -34,9 +34,14 @@ app.use(errorHandler);
 // colyseus game server
 const gameServer = new ColyseusServer({
     server: createServer(app),
-});
+    presence: new RedisPresence(),
+    driver: new RedisDriver(),
 
-gameServer.listen(parseInt(process.env.PORT) || 5002).then(data => {
+    
+});
+console.log(process.env.INSTANCE_ID);
+console.log('\u001b[31m', process.env.INSTANCE_ID);
+gameServer.listen(parseInt(process.env.PORT) + Number(process.env.INSTANCE_ID) || 5002).then(data => {
     console.log(data);
 });
 
