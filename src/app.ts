@@ -18,7 +18,14 @@ export const app = express();
 dotenv.config();
 
 // Express configuration
-app.set("port", + Number(process.env.NODE_APP_INSTANCE) + Number(process.env.PORT));
+if(process.env.NODE_APP_INSTANCE !== undefined) {
+    app.set("port", + Number(process.env.NODE_APP_INSTANCE) + Number(process.env.PORT));
+}
+else {
+    app.set("port", process.env.PORT);
+
+}
+
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
 
@@ -37,17 +44,24 @@ app.use(errorHandler);
 // colyseus game server
 const gameServer = new ColyseusServer({
     server: createServer(app),
-    presence: new RedisPresence(),
+    presence: new RedisPresence({ name: 'my-game-one'}),
     driver: new RedisDriver(),
 
 });
 console.log(process.env);
 console.log(process.env.PORT)
 console.log(process.env.NODE_ENV)
-console.log('\u001b[31m', process.env.NODE_APP_INSTANCE);
-console
-gameServer.listen(Number(process.env.PORT) + 1 + Number(process.env.NODE_APP_INSTANCE)).then(data => {
-    console.log(data);
-});
+if(process.env.NODE_APP_INSTANCE) {
+    console.log('\u001b[31m', process.env.NODE_APP_INSTANCE);
+    gameServer.listen(Number(process.env.PORT) + 1 + Number(process.env.NODE_APP_INSTANCE)).then(data => {
+        console.log(data);
+    });
+
+}
+else {
+    gameServer.listen(Number(process.env.PORT) + 2);
+
+}
+
 
 gameServer.define("main", MainRoom);

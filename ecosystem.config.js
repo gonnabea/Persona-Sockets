@@ -4,7 +4,7 @@ const os = require('os');
 module.exports = {
     apps: [{
         port: 5001,
-        name: "colyseus",
+        name: "persona-socket",
         script: "dist/server.js",
         watch: true,
         // instances: os.cpus().length,
