@@ -16,10 +16,11 @@ import cors from "cors";
 export const app = express();
 
 dotenv.config();
+console.log('\u001b[31m', Number(process.env.NODE_APP_INSTANCE) + Number(process.env.PORT));
 
 // Express configuration
 if(process.env.NODE_APP_INSTANCE !== undefined) {
-    app.set("port", + Number(process.env.NODE_APP_INSTANCE) + Number(process.env.PORT));
+    app.set("port", Number(process.env.NODE_APP_INSTANCE) + Number(process.env.PORT));
 }
 else {
     app.set("port", process.env.PORT);
@@ -53,7 +54,9 @@ console.log(process.env.PORT)
 console.log(process.env.NODE_ENV)
 if(process.env.NODE_APP_INSTANCE) {
     console.log('\u001b[31m', process.env.NODE_APP_INSTANCE);
-    gameServer.listen(Number(process.env.PORT) + 1 + Number(process.env.NODE_APP_INSTANCE)).then(data => {
+    console.log('\u001b[31m', Number(process.env.PORT) + 2 + Number(process.env.NODE_APP_INSTANCE));
+
+    gameServer.listen(Number(process.env.PORT) + 2 + Number(process.env.NODE_APP_INSTANCE)).then(data => {
         console.log(data);
     });
 
