@@ -65,6 +65,19 @@ export class MainRoom extends Room<RoomState> {
         this.onMessage("join", (client, message) => {
             this.broadcast(message);
         });
+
+        // 축구 점수측정 후 다른 클라이언트에 전달
+        this.state.createScorrerScore("soccer_score_1");
+        this.onMessage("soccerScore", (client, message) => {
+            this.state.increaseSoccerScore("team1Score", message.soccerScoreId);
+
+            const msgWithHeader = {
+                clientId: client.sessionId,
+                message,
+            };
+
+            this.broadcast("soccerScore", msgWithHeader, { except: client });
+        });
     }
 
     onJoin(client: Client, payload: any) {
