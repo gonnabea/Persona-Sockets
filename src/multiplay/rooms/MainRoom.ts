@@ -69,11 +69,33 @@ export class MainRoom extends Room<RoomState> {
         // 축구 점수측정 후 다른 클라이언트에 전달
         this.state.createScorrerScore("soccer_score_1");
         this.onMessage("soccerScore", (client, message) => {
-            this.state.increaseSoccerScore("team1Score", message.soccerScoreId);
+            /*
+                {
+                    soccerScoreId: "string",
+                    team: "team1" | "team2", // 스코어 지정할때만 (증가)
+                    type: "increase" | "reset", // 만약 리셋이면 팀이름 안넘겨도됨.
+                } 
+             */
+
+            // 축구 스코어 id가 있는지 확인 후 실행
+            if (message.soccerScoreId) {
+                // 점수 1점 추가
+                if (message.team && message.type === "increase") {
+                    this.state.increaseSoccerScore(
+                        message.team,
+                        message.soccerScoreId,
+                    );
+                }
+
+                // 점수 초기화
+                if (message.type === "reset") {
+                    this.state.resetSoccerScore(message.soccerScoreId);
+                }
+            }
 
             const msgWithHeader = {
                 clientId: client.sessionId,
-                message,
+                message: this.state.soccerScores.get(message.soccerScoreId),
             };
 
             this.broadcast("soccerScore", msgWithHeader, { except: client });

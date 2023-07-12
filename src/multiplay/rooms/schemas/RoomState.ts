@@ -57,8 +57,8 @@ export class RoomState extends Schema {
 
     createScorrerScore(id: string): void {
         const newScore = new SoccerScore();
-        newScore.team1Score = 0;
-        newScore.team2Score = 0;
+        newScore.team1 = 0;
+        newScore.team2 = 0;
         newScore.id = id;
 
         this.soccerScores.set(id, newScore);
@@ -100,12 +100,22 @@ export class RoomState extends Schema {
         ball.positionZ = position.z;
     }
 
-    increaseSoccerScore(team: "team1Score" | "team2Score", id: string): void {
+    // 축구 점수 1점 추가
+    increaseSoccerScore(team: "team1" | "team2", id: string): void {
         const score = this.soccerScores.get(id);
 
         score.id = id;
 
         score[team] = score[team] += 1;
+    }
+
+    // 축구 점수 초기화
+    resetSoccerScore(id: string): void {
+        const score = this.soccerScores.get(id);
+
+        score.team1 = 0;
+        score.team2 = 0;
+        score.id = id;
     }
 
     removePlayer(id: string): void {

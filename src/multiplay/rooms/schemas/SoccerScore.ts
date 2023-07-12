@@ -8,9 +8,9 @@ export class SoccerScore extends Schema {
 
     // 첫번째 팀의 스코어
     @type("number")
-    team1Score: number;
+    team1: number;
 
     // 두번째 팀의 스코어
     @type("number")
-    team2Score: number;
+    team2: number;
 }
