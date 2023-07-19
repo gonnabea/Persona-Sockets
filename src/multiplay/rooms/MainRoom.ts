@@ -98,7 +98,7 @@ export class MainRoom extends Room<RoomState> {
                 message: this.state.soccerScores.get(message.soccerScoreId),
             };
 
-            this.broadcast("soccerScore", msgWithHeader, { except: client });
+            this.broadcast("soccerScore", msgWithHeader);
         });
     }
 
@@ -120,9 +120,9 @@ export class MainRoom extends Room<RoomState> {
     }
 
     onLeave(client: Client) {
-        const username = this.state.players.get(client.sessionId).username;
-        this.broadcast("chat", `${username} has left`);
+        const userState = this.state.players.get(client.sessionId);
 
+        this.broadcast("leave", userState);
         this.state.removePlayer(client.sessionId);
     }
 
