@@ -100,6 +100,12 @@ export class RoomState extends Schema {
         ball.positionZ = position.z;
     }
 
+    setBallTouched(touchedSessionId: string, id: string): void {
+        const ball = this.balls.get(id);
+
+        ball.lastTouchedSessionId = touchedSessionId;
+    }
+
     // 축구 점수 1점 추가
     increaseSoccerScore(team: "team1" | "team2", id: string): void {
         const score = this.soccerScores.get(id);
