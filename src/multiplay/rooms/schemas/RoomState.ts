@@ -64,13 +64,20 @@ export class RoomState extends Schema {
         this.soccerScores.set(id, newScore);
     }
 
-    setPlayerPosition(position: position, rotationZ: number, id: string): void {
+    setPlayerPosition(position: position, rotationZ: number, isRunning: boolean, id: string): void {
         const player = this.players.get(id);
 
         player.positionX = position.x;
         player.positionY = position.y;
         player.positionZ = position.z;
         player.rotationZ = rotationZ;
+      
+    }
+
+    setPlayerRunningState(isRunning: boolean, id: string): void {
+        const player = this.players.get(id);
+
+        player.isRunning = isRunning;
     }
 
     setBallStatus(

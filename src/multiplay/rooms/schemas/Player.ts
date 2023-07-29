@@ -18,6 +18,9 @@ export class Player extends Schema {
     rotationZ: number;
 
     @type('boolean')
+    isRunning: boolean;
+
+    @type('boolean')
     isAttacking: false;
 
     @type('string')

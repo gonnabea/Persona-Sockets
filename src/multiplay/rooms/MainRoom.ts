@@ -25,12 +25,22 @@ export class MainRoom extends Room<RoomState> {
                 z: message.positionZ,
             };
             const rotationZ = message.rotationZ;
-            this.state.setPlayerPosition(position, rotationZ, client.sessionId);
+            this.state.setPlayerPosition(position, rotationZ, message.isRunning, client.sessionId);
+            this.state.setPlayerRunningState(true, client.sessionId);
+
+          
+
             const msgWithSender = {
                 clientId: client.sessionId,
                 message,
             };
             this.broadcast("move", msgWithSender, { except: client });
+        });
+
+        // 캐릭터 running 상태 갱신 요청 리스너
+        this.onMessage("moveStop", (client) => {
+            this.state.setPlayerRunningState(false, client.sessionId);
+
         });
 
         // 축구공 //
