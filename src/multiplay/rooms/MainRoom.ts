@@ -25,22 +25,25 @@ export class MainRoom extends Room<RoomState> {
                 z: message.positionZ,
             };
             const rotationZ = message.rotationZ;
-            this.state.setPlayerPosition(position, rotationZ, message.isRunning, client.sessionId);
+            this.state.setPlayerPosition(
+                position,
+                rotationZ,
+                message.isRunning,
+                client.sessionId,
+            );
             this.state.setPlayerRunningState(true, client.sessionId);
-
-          
 
             const msgWithSender = {
                 clientId: client.sessionId,
                 message,
             };
+
             this.broadcast("move", msgWithSender, { except: client });
         });
 
         // 캐릭터 running 상태 갱신 요청 리스너
-        this.onMessage("moveStop", (client) => {
+        this.onMessage("moveStop", client => {
             this.state.setPlayerRunningState(false, client.sessionId);
-
         });
 
         // 축구공 //
@@ -135,10 +138,6 @@ export class MainRoom extends Room<RoomState> {
     }
 
     onJoin(client: Client, payload: any) {
-        this.broadcast("join", payload.user);
-        console.log(this.clients);
-        console.log(this.clients[0].userData);
-
         this.clients[0].userData = {
             isOwner: true,
         };
@@ -148,7 +147,9 @@ export class MainRoom extends Room<RoomState> {
             payload.user.username,
             payload.user.character,
             payload.user.email,
+            [-3.4604011564526544, -0.6001151204109192, -56.78822926307936],
         );
+        this.broadcast("join", this.state.players.get(client.id));
     }
 
     onLeave(client: Client) {

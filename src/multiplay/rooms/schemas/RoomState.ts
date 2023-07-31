@@ -38,12 +38,17 @@ export class RoomState extends Schema {
         username: string,
         character: string,
         email: string,
+        position: [number, number, number],
     ): void {
         const newPlayer = new Player();
         newPlayer.username = username;
         newPlayer.id = id;
         newPlayer.character = character;
         newPlayer.email = email;
+        newPlayer.positionX = position[0];
+        newPlayer.positionY = position[1];
+        newPlayer.positionZ = position[2];
+        newPlayer.rotationZ = 0;
 
         this.players.set(id, newPlayer);
     }
@@ -64,14 +69,18 @@ export class RoomState extends Schema {
         this.soccerScores.set(id, newScore);
     }
 
-    setPlayerPosition(position: position, rotationZ: number, isRunning: boolean, id: string): void {
+    setPlayerPosition(
+        position: position,
+        rotationZ: number,
+        isRunning: boolean,
+        id: string,
+    ): void {
         const player = this.players.get(id);
 
         player.positionX = position.x;
         player.positionY = position.y;
         player.positionZ = position.z;
         player.rotationZ = rotationZ;
-      
     }
 
     setPlayerRunningState(isRunning: boolean, id: string): void {
